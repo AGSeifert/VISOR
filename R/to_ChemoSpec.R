@@ -163,3 +163,41 @@ matrix_to_ChemoSpec <- function(
     ...
   )
 }
+
+#' {hyperSpec} 🔵  ➡️ 🟠 {ChemoSpec}
+#'
+#' {ChemoSpec} requires that the {hyperSpec} object
+#' meets the following conditions:
+#' - Wavelengths must be unique.
+#' - Spectra must not contain `NA`s.
+#'
+#' @param hySpc [`hyperSpec::hyperSpec-class`] object.
+#' @inheritParams to_ChemoSpec
+#' @inheritDotParams to_ChemoSpec groups desc colors_set sym_set alt.sym_set .strict_extra_data_names
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(hyperSpec))
+#' data(flu)
+#' hyperSpec_to_ChemoSpec(
+#'   flu,
+#'   names = 1:6 |> as.character(),
+#'   groups = LETTERS[1:6] |> as.factor()
+#' ) |> str()
+#'
+#' @export
+#' @keywords from_hyperSpec to_ChemoSpec
+#' @seealso `to_ChemoSpec()`, `ChemoSpec_to_hyperSpec()`
+hyperSpec_to_ChemoSpec <- function(hySpc, names, groups, ...) {
+  to_ChemoSpec(
+    data = hySpc[[]],
+    freq = hySpc |> hyperSpec::wl(),
+    names = names,
+    # ^ Unique filenames are not enforced by hyperSpec
+    groups = groups,
+    # ^ No class factor is required for hyperSpec
+    unit_frequency = hySpc@label$.wavelength |> base::as.character(),
+    unit_intensity = hySpc@label$spc |> base::as.character(),
+    extra_data = hySpc$..,
+    ...
+  )
+}
