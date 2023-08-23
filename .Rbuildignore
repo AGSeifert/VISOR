@@ -1,0 +1,8 @@
+^interspec\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^data-raw$
+^LICENSE\.md$
+^\.github$
