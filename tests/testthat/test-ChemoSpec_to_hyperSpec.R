@@ -78,4 +78,3 @@ test_that("ChemoSpec ➡️ hyperSpec: alignMUD", {
 
   expect_s4_class(hy, "hyperSpec")
 })
-
