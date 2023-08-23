@@ -1,3 +1,5 @@
-# VISOR 0.0.0.9000
+# VISOR (development version)
 
-* Added a `NEWS.md` file to track changes to the package.
+* Add `to_ChemoSpec()`, `to_hyperSpec()`
+* Add `matrix_to_ChemoSpec()`
+* Add `simplerspec_to_ChemoSpec()`
