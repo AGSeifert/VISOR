@@ -122,3 +122,44 @@ to_ChemoSpec <- function(
 
   return(Spectra)
 }
+
+#' Matrix ⚪ ➡️ 🟠 {ChemoSpec}
+#'
+#' @param data Numeric matrix with sample rows and frequency cols.
+#'        `rownames()` must be unique and contain sample names.
+#'        `colnames()` must be unique and contain frequency values, which can
+#'        be cast to numeric using `as.numeric()`.
+#' @inheritParams to_ChemoSpec
+#' @inheritDotParams to_ChemoSpec desc unit_frequency unit_intensity colors_set sym_set alt.sym_set extra_data .strict_extra_data_names
+#'
+#' @returns A `ChemoSpec::Spectra()` object.
+#'
+#' @examples
+#' x <- matrix(runif(260), nrow = 26)
+#' rownames(x) <- letters[1:26]
+#' colnames(x) <- 1:10
+#' matrix_to_ChemoSpec(
+#'   x,
+#'   groups = rep(LETTERS[1:2], 13) |> as.factor()
+#' ) |> str()
+#'
+#' @export
+#' @keywords from_matrix to_ChemoSpec
+#' @seealso `to_ChemoSpec()`
+matrix_to_ChemoSpec <- function(
+    data,
+    groups,
+    ...) {
+  checkmate::assert_matrix(
+    data,
+    mode = "numeric", row.names = "unique", col.names = "unique"
+  )
+
+  to_ChemoSpec(
+    data = data,
+    freq = base::colnames(data) |> base::as.numeric(),
+    names = base::rownames(data),
+    groups = groups,
+    ...
+  )
+}
