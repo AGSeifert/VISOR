@@ -164,6 +164,117 @@ matrix_to_ChemoSpec <- function(
   )
 }
 
+#' {simplerspec} ⚪ ➡️ 🟠 {ChemoSpec}
+#'
+#' Some data will not be converted:
+#' - Spectra columns except the `data_column`
+#' - Wavenumber columns except the `freq_column`
+#'
+#' @param spc_tbl [`simplerspec::gather_spc`],
+#'        [`simplerspec::resample_spc`], [`simplerspec::average_spc`],
+#'        or [`simplerspec::preprocess_spc`] spectra tibble.
+#' @param data_column Column name of the data to use.
+#'        Must be one of `"spc_pre", "spc_mean", "spc_rs", "spc"`, or
+#'        any column name if `strict_column_check` is set to FALSE.
+#' @param freq_column Column name of the data to use.
+#'        Must be one of `"xvalues_pre", "wavenumbers_rs", "wavenumbers"`, or
+#'        any column name if `strict_column_check` is set to FALSE.
+#' @param name_column Column name of the data to use.
+#'        Must be one of `"unique_id", "file_id", "sample_id", "sample_name"`, or
+#'        any metadata column name if `strict_column_check` is set to FALSE.
+#' @param .name_column_collapse (**Default**: NULL) Optional string, that
+#'        if set allows multiple metadata column names to be set in `name_column`,
+#'        causing them to be concatenated using `.name_column_collapse` as a
+#'        separator.
+#'        This can be used with `.strict_column_check = FALSE` to construct
+#'        custom sample identifiers using other metadata such as `rep_no`.
+#' @param .strict_column_check (**Default**: TRUE) Set this to FALSE to allow
+#'        using any valid column name on `spc_tbl` in `data_column` and
+#'        `freq_column`, and any metadata column names in `name_column`.
+#' @inheritParams to_ChemoSpec
+#' @inheritDotParams to_ChemoSpec desc unit_frequency unit_intensity colors_set sym_set alt.sym_set .strict_extra_data_names
+#'
+#' @returns A `ChemoSpec::Spectra()` object.
+#'
+#' @examples
+#' data("simplerspec_opus")
+#' simplerspec_to_ChemoSpec(
+#'   simplerspec_opus,
+#'   groups = factor(LETTERS[1:3])
+#' ) |> str()
+#'
+#' @export
+#' @keywords from_simplerspec to_ChemoSpec
+#' @seealso `to_ChemoSpec()`
+simplerspec_to_ChemoSpec <- function(
+    spc_tbl,
+    groups,
+    data_column = base::c("spc_pre", "spc_mean", "spc_rs", "spc"),
+    freq_column = base::c("xvalues_pre", "wavenumbers_rs", "wavenumbers"),
+    name_column = base::c("unique_id", "file_id", "sample_id", "sample_name"),
+    .name_column_collapse = NULL,
+    .strict_column_check = TRUE,
+    ...) {
+  rlang::check_installed("tibble")
+
+  spc_tbl <- tibble::as_tibble(spc_tbl)
+
+  checkmate::assert_class(spc_tbl, base::c("tbl_df", "tbl", "data.frame"))
+  checkmate::assert_string(.name_column_collapse, null.ok = TRUE)
+
+  if (.strict_column_check) {
+    data_column <- base::match.arg(data_column, c("spc_pre", "spc_mean", "spc_rs", "spc"))
+    freq_column <- base::match.arg(freq_column, c("xvalues_pre", "wavenumbers_rs", "wavenumbers"))
+    name_column <- base::match.arg(name_column, c("unique_id", "file_id", "sample_id", "sample_name"), several.ok = !is.null(.name_column_collapse))
+  } else {
+    data_column <- base::match.arg(data_column, colnames(spc_tbl))
+    freq_column <- base::match.arg(freq_column, colnames(spc_tbl))
+    name_column <- base::match.arg(name_column, colnames(spc_tbl$metadata[[1]]), several.ok = !is.null(.name_column_collapse))
+  }
+
+  .duplicate_rows <- spc_tbl[, freq_column][[1]] |>
+    base::duplicated()
+  .sample_count <- spc_tbl[, freq_column][[1]] |>
+    base::as.data.frame() |>
+    base::nrow()
+  .all_freq_identical <- base::sum(.duplicate_rows) == (.sample_count - 1)
+
+  if (.all_freq_identical) {
+    stop(base::paste0(
+      "ChemoSpec requires that all spectra in a `Spectra` object have the same frequencies (x-values).\n",
+      "Check that $", freq_column, " on your `simplerspec` contains only identical lists!\n",
+      "Hint: The following list elements are not duplicates of the first one:\n",
+      "[", which(!.duplicate_rows)[-1] |> paste(collapse = ", "), "]."
+    ))
+  }
+
+  names <- spc_tbl$metadata |>
+    base::lapply(function(x) base::paste(x[name_column], collapse = .name_column_collapse)) |>
+    base::unlist()
+
+  data <- base::do.call(rbind, spc_tbl[, data_column][[1]]) |> as.matrix()
+  base::rownames(data) <- names
+
+  freq <- spc_tbl[, freq_column][[1]][[1]]
+  checkmate::assert_numeric(
+    freq,
+    any.missing = FALSE,
+    len = base::ncol(data)
+  )
+
+  extra_data <- base::do.call(rbind, spc_tbl$metadata) |> base::as.data.frame()
+  base::rownames(extra_data) <- names
+
+  to_ChemoSpec(
+    data = data,
+    freq = freq,
+    names = names,
+    groups = groups,
+    extra_data = extra_data,
+    ...
+  )
+}
+
 #' {hyperSpec} 🔵  ➡️ 🟠 {ChemoSpec}
 #'
 #' {ChemoSpec} requires that the {hyperSpec} object

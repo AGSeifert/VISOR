@@ -3,5 +3,6 @@
 export(ChemoSpec_to_hyperSpec)
 export(hyperSpec_to_ChemoSpec)
 export(matrix_to_ChemoSpec)
+export(simplerspec_to_ChemoSpec)
 export(to_ChemoSpec)
 export(to_hyperSpec)
