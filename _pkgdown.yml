@@ -17,6 +17,9 @@ reference:
     #- has_keyword("from_hyperSpec")
     - to_hyperSpec
     - has_keyword("to_hyperSpec")
+  - title: "⚪ `opusreader2`"
+    contents:
+    - has_keyword("from_opusreader2")
   - title: "⚪ `simplerspec`"
     contents:
     - has_keyword("from_simplerspec")
