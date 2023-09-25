@@ -26,7 +26,8 @@ Suggests:
     tibble
 Remotes: 
     github::philipp-baumann/simplerspec,
-    github::spectral-cockpit/opusreader2
+    github::spectral-cockpit/opusreader2,
+    github::r-hyperspec/hyperSpec
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
