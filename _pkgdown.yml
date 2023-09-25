@@ -1,9 +1,11 @@
 url: https://agseifert.github.io/VISOR
 template:
   bootstrap: 5
+  # bootswatch: united
   bslib:
     base_font: {google: "Atkinson Hyperlegible"}
     code_font: {google: "JetBrains Mono"}
+    # text-muted: var(--bs-gray-200)
   theme: a11y-light
 
 reference:
@@ -17,8 +19,14 @@ reference:
     #- has_keyword("from_hyperSpec")
     - to_hyperSpec
     - has_keyword("to_hyperSpec")
+  - title: "⚪ `opusreader2`"
+    contents:
+    - has_keyword("from_opusreader2")
   - title: "⚪ `simplerspec`"
     contents:
     - has_keyword("from_simplerspec")
     # - to_simplerspec
     # - has_keyword("to_simplerspec")
+  - title: Data sets
+    contents:
+    - has_keyword("data")

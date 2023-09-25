@@ -28,4 +28,5 @@ They may convert to multiple target formats through nested conversions, that is 
 
 Current source formats are:
 
+- `opusreader2`
 - `simplerspec`

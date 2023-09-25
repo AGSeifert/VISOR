@@ -68,6 +68,170 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
   )
 }
 
+#' Get a list of data block names from opusreader2.
+#'
+#' @param opusreader2_list A `list_opusreader2`.
+#'
+#' @returns A vector of block names.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' .getDataBlockNames(opusreader2_list)
+#'
+#' @seealso `.getParamBlockNames()`
+#' @export
+#' @keywords internal
+.getDataBlockNames <- function(opusreader2_list) {
+  checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
+
+  # Finds blocks which are in all files
+  blocks_tbl <- opusreader2_list |> lapply(function(x) {
+    is_block <- x |> lapply(function(block) {
+      !is.null(block$data)
+    })
+    is_block[which(as.logical(is_block))] |> names()
+  }) |> unlist() |> table()
+
+  blocks_tbl[which(blocks_tbl == length(opusreader2_list))] |> names()
+}
+
+#' Get a list of param block names from opusreader2.
+#'
+#' @param opusreader2_list A `list_opusreader2`.
+#'
+#' @returns A vector of block names.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' .getParamBlockNames(opusreader2_list)
+#'
+#' @seealso `.getDataBlockNames()`
+#' @export
+#' @keywords internal
+.getParamBlockNames <- function(opusreader2_list) {
+  checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
+
+  # Finds blocks which are in all files
+  params_tbl <- opusreader2_list |> lapply(function(x) {
+    is_block <- x |> lapply(function(block) {
+      !is.null(block$parameters)
+    })
+    is_block[which(as.logical(is_block))] |> names()
+  }) |> unlist() |> table()
+
+  params_tbl[which(params_tbl == length(opusreader2_list))] |> names()
+}
+
+#' {opusreader2} ⚪ ➡️ 🔵 {hyperSpec}
+#'
+#' Spectra are automatically grouped by wavenumbers in `data_block`, and a list
+#' is returned. The spectra must then be resampled/aligned to match a common set
+#' of wavenumbers before they can be combined.
+#'
+#' Some data will not be converted:
+#' - Spectra columns except the `spc_column`
+#' - Wavenumber columns except the `wavelength_column`
+#'
+#' @param opusreader2_list A `list_opusreader2`.
+#' @param data_block (Default: `"ab"`) Data block to use from the opus files.
+#'        If you aren't sure which data blocks are available in your data set,
+#'        use `.getDataBlockNames()`.
+#' @inheritParams to_hyperSpec
+#' @inheritDotParams hyperSpec::new_hyperSpec gc
+#'
+#' @returns A list of `hyperSpec::hyperSpec-class` objects.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
+#'
+#' @export
+#' @keywords from_opusreader2 to_hyperSpec
+#' @seealso
+#' * `opusreader2_to_ChemoSpec()`
+#' * `to_hyperSpec()`
+#' * `.getParamBlockNames()`
+#' * `.getDataBlockNames()`
+opusreader2_to_hyperSpec <- function(
+  opusreader2_list,
+  data_block = "ab",
+  ...
+) {
+  rlang::check_installed("rlist")
+  checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
+
+  data_block <- data_block |> match.arg(
+    opusreader2_list |> .getDataBlockNames()
+  )
+
+  param_blocks <- opusreader2_list |> .getParamBlockNames()
+
+  opusreader2_list |>
+    rlist::list.group(.[[data_block]]$wavenumbers) |>
+    lapply(function(opusreader2_list) {
+      wavelength <- opusreader2_list[[1]][[data_block]]$wavenumbers
+
+      data <- {
+        data_pre = opusreader2_list |> lapply(function(x) {
+          x[param_blocks] |> lapply(function(block) {
+            block$parameters |> lapply(function(param) {
+              param$parameter_value
+            })
+          }) |> as.data.frame()
+        })
+
+        # This will drop meta data columns not included in EVERY spectra being loaded
+        data_cols_to_keep = {
+          data_cols_tbl = data_pre |> lapply(colnames) |> unlist() |> table()
+
+          cols_to_drop = data_cols_tbl[which(data_cols_tbl != length(opusreader2_list))] |> names()
+
+          if (cols_to_drop |> length() > 0) {
+            warning(paste(
+              "Dropping the following columns due to not being present in every file being loaded:\n·",
+              data_cols_tbl[which(data_cols_tbl != length(opusreader2_list))] |> names() |> paste(collapse = "\n· ")
+            ))
+          }
+
+          data_cols_tbl[which(data_cols_tbl == length(opusreader2_list))] |> names()
+        }
+
+        data_pre = data_pre |> lapply(function(df) {
+          df[, data_cols_to_keep]
+        })
+
+        do.call("rbind", data_pre)
+      }
+
+      labels <- opusreader2_list[[1]][param_blocks] |> lapply(function(block) {
+        block$parameters |> lapply(function(param) {
+          param$parameter_name_long
+        })
+      }) |> unlist() |> as.list()
+      labels$.wavelength <- "TODO"
+      labels$spc <- "TODO"
+
+      spc <- do.call(
+        "rbind",
+        opusreader2_list |> lapply(function(x) x[[data_block]]$data |> as.double())
+      )
+
+      checkmate::assert_matrix(
+        spc, "numeric",
+        nrows = opusreader2_list |> length(), ncols = wavelength |> length()
+      )
+
+      data$spc <- spc
+
+      to_hyperSpec(
+        data = data,
+        wavelength = wavelength,
+        labels = labels,
+        ...
+      )
+    })
+}
+
 #' {simplerspec} ⚪ ➡️ 🔵 {hyperSpec}
 #'
 #' Some data will not be converted:
@@ -144,7 +308,7 @@ simplerspec_to_hyperSpec <- function(
   to_hyperSpec(
     data = data,
     wavelength = wavelength,
-    labels = labels # ,
-    # ...
+    labels = labels,
+    ...
   )
 }
