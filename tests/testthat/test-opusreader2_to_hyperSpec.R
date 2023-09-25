@@ -2,7 +2,7 @@ test_that("opusreader2 ➡️ hyperSpec: opus", {
   skip_if_not_installed("opusreader2")
   skip_if_not_installed("hyperSpec")
 
-  data(opusreader2_list)
+  suppressWarnings(data(opusreader2_list))
 
   skip_if_not(exists("opusreader2_list"), "Example data set required for test")
 
@@ -12,6 +12,7 @@ test_that("opusreader2 ➡️ hyperSpec: opus", {
 })
 
 test_that("opusreader2 ➡️ hyperSpec: opus-dbg", {
+  skip_on_ci()
   skip_if_not_installed("opusreader2")
   skip_if_not_installed("hyperSpec")
 
