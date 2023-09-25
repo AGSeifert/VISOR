@@ -61,11 +61,11 @@
 
 
 <dt>...</dt>
-<dd><p>Arguments passed on to <code><a href="https://r-hyperspec.github.io/hyperSpec/reference/initialize.html" class="external-link">hyperSpec::new_hyperSpec</a></code></p><dl><dt><code>gc</code></dt>
+<dd><p>Arguments passed on to <code>hyperSpec::new_hyperSpec</code></p><dl><dt><code>gc</code></dt>
 <dd><p>(logical) <br> Use garbage collection.
 If option <code>gc</code> is <code>TRUE</code>, the initialization will have frequent calls
 to <code><a href="https://rdrr.io/r/base/gc.html" class="external-link">base::gc()</a></code>, which can help to avoid swapping or running out of
-memory. The default value of <code>gc</code> can be set via <code><a href="https://r-hyperspec.github.io/hyperSpec/reference/Future-functions.html" class="external-link">hy_set_options()</a></code>.</p></dd>
+memory. The default value of <code>gc</code> can be set via <code>hy_set_options()</code>.</p></dd>
 
   
 </dl></dd>
@@ -75,7 +75,7 @@ memory. The default value of <code>gc</code> can be set via <code><a href="https
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A <code><a href="https://r-hyperspec.github.io/hyperSpec/reference/hyperSpec-class.html" class="external-link">hyperSpec::hyperSpec</a></code> object.</p>
+<p>A <code>hyperSpec::hyperSpec</code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -87,7 +87,47 @@ memory. The default value of <code>gc</code> can be set via <code><a href="https
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bryanhanson.github.io/ChemoSpec/" class="external-link">ChemoSpec</a></span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"alignMUD"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ChemoSpec_to_hyperSpec</span><span class="op">(</span><span class="va">alignMUD</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in to_hyperSpec(spc = spc, data = data, wavelength = wavelength,     labels = labels, ...):</span> The package "hyperSpec" (&gt;= 0.200.0.9000) is required.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::is_lang’ by ‘rlang::is_lang’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::call_modify’ by ‘rlang::call_modify’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::is_call’ by ‘rlang::is_call’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::is_formula’ by ‘rlang::is_formula’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::as_name’ by ‘rlang::as_name’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_label’ by ‘rlang::f_label’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::is_atomic’ by ‘rlang::is_atomic’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::is_pairlist’ by ‘rlang::is_pairlist’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::call_standardise’ by ‘rlang::call_standardise’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::expr_text’ by ‘rlang::expr_text’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_env&lt;-’ by ‘rlang::f_env&lt;-’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_text’ by ‘rlang::f_text’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::missing_arg’ by ‘rlang::missing_arg’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_rhs&lt;-’ by ‘rlang::f_rhs&lt;-’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_rhs’ by ‘rlang::f_rhs’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_env’ by ‘rlang::f_env’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_lhs&lt;-’ by ‘rlang::f_lhs&lt;-’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::expr_label’ by ‘rlang::expr_label’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘lazyeval::f_lhs’ by ‘rlang::f_lhs’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘rlang::as_list’ by ‘xml2::as_list’ when loading ‘hyperSpec’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘latticeExtra::layer’ by ‘ggplot2::layer’ when loading ‘hyperSpec’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formal class 'hyperSpec' [package "hyperSpec"] with 4 slots</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ wavelength: num [1:1500] 5 5 4.99 4.99 4.99 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ data      :'data.frame':	20 obs. of  5 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ groups : Factor w/ 1 level "S": 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ colors : chr [1:20] "black" "black" "black" "black" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ sym    : num [1:20] 19 19 19 19 19 19 19 19 19 19 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ alt.sym: chr [1:20] "+" "+" "+" "+" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ spc    : num [1:20, 1:1500] 0.01225 0.01043 0.00955 0.01113 0.01042 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr [1:1500] "5" "4.99666" "4.99333" "4.98999" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ label     :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ .wavelength:  expression("ppm")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ spc        :  expression("intensity")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ log       :'data.frame':	0 obs. of  0 variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formal class 'data.frame' [package "methods"] with 4 slots</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..@ .Data    : list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..@ names    : chr(0) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..@ row.names: int(0) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..@ .S3Class : chr "data.frame"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
