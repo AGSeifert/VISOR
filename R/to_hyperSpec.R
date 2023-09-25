@@ -68,6 +68,60 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
   )
 }
 
+#' Get a list of data block names from opusreader2.
+#'
+#' @param opusreader2_list A `list_opusreader2`.
+#'
+#' @returns A vector of block names.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' .getDataBlockNames(opusreader2_list)
+#'
+#' @seealso `.getParamBlockNames()`
+#' @export
+#' @keywords internal
+.getDataBlockNames <- function(opusreader2_list) {
+  checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
+
+  # Finds blocks which are in all files
+  blocks_tbl <- opusreader2_list |> lapply(function(x) {
+    is_block <- x |> lapply(function(block) {
+      !is.null(block$data)
+    })
+    is_block[which(as.logical(is_block))] |> names()
+  }) |> unlist() |> table()
+
+  blocks_tbl[which(blocks_tbl == length(opusreader2_list))] |> names()
+}
+
+#' Get a list of param block names from opusreader2.
+#'
+#' @param opusreader2_list A `list_opusreader2`.
+#'
+#' @returns A vector of block names.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' .getParamBlockNames(opusreader2_list)
+#'
+#' @seealso `.getDataBlockNames()`
+#' @export
+#' @keywords internal
+.getParamBlockNames <- function(opusreader2_list) {
+  checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
+
+  # Finds blocks which are in all files
+  params_tbl <- opusreader2_list |> lapply(function(x) {
+    is_block <- x |> lapply(function(block) {
+      !is.null(block$parameters)
+    })
+    is_block[which(as.logical(is_block))] |> names()
+  }) |> unlist() |> table()
+
+  params_tbl[which(params_tbl == length(opusreader2_list))] |> names()
+}
+
 #' {opusreader2} ⚪ ➡️ 🔵 {hyperSpec}
 #'
 #' Spectra are automatically grouped by wavenumbers in `data_block`, and a list
@@ -78,7 +132,10 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #' - Spectra columns except the `spc_column`
 #' - Wavenumber columns except the `wavelength_column`
 #'
-#' @param or2 An `opusreader2_list`.
+#' @param opusreader2_list A `list_opusreader2`.
+#' @param data_block (Default: `"ab"`) Data block to use from the opus files.
+#'        If you aren't sure which data blocks are available in your data set,
+#'        use `.getDataBlockNames()`.
 #' @inheritParams to_hyperSpec
 #' @inheritDotParams hyperSpec::new_hyperSpec gc
 #'
@@ -86,11 +143,15 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #'
 #' @examples
 #' data("opusreader2_list")
-#' spectra <- opusreader2_to_hyperSpec(opusreader2_list[[1]]) |> str()
+#' spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
 #'
 #' @export
 #' @keywords from_opusreader2 to_hyperSpec
-#' @seealso `to_hyperSpec()`
+#' @seealso
+#' * `opusreader2_to_ChemoSpec()`
+#' * `to_hyperSpec()`
+#' * `.getParamBlockNames()`
+#' * `.getDataBlockNames()`
 opusreader2_to_hyperSpec <- function(
   opusreader2_list,
   data_block = "ab",
@@ -99,29 +160,11 @@ opusreader2_to_hyperSpec <- function(
   rlang::check_installed("rlist")
   checkmate::assert_class(opusreader2_list, c("list_opusreader2", "list"))
 
-  data_block <- data_block |> match.arg({
-    # Finds blocks which are in all files
-    blocks_tbl = opusreader2_list |> lapply(function(x) {
-      is_block = x |> lapply(function(block) {
-        !is.null(block$data)
-      })
-      is_block[which(as.logical(is_block))] |> names()
-    }) |> unlist() |> table()
+  data_block <- data_block |> match.arg(
+    opusreader2_list |> .getDataBlockNames()
+  )
 
-    blocks_tbl[which(blocks_tbl == length(opusreader2_list))] |> names()
-  })
-
-  param_blocks <- {
-    # Finds blocks which are in all files
-    params_tbl = opusreader2_list |> lapply(function(x) {
-      is_block = x |> lapply(function(block) {
-        !is.null(block$parameters)
-      })
-      is_block[which(as.logical(is_block))] |> names()
-    }) |> unlist() |> table()
-
-    params_tbl[which(params_tbl == length(opusreader2_list))] |> names()
-  }
+  param_blocks <- opusreader2_list |> .getParamBlockNames()
 
   opusreader2_list |>
     rlist::list.group(.[[data_block]]$wavenumbers) |>

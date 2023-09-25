@@ -7,6 +7,12 @@
 opusreader2_to_hyperSpec(opusreader2_list, data_block = "ab", ...)
 }
 \arguments{
+\item{opusreader2_list}{A \code{list_opusreader2}.}
+
+\item{data_block}{(Default: \code{"ab"}) Data block to use from the opus files.
+If you aren't sure which data blocks are available in your data set,
+use \code{.getDataBlockNames()}.}
+
 \item{...}{
   Arguments passed on to \code{\link[hyperSpec:initialize]{hyperSpec::new_hyperSpec}}
   \describe{
@@ -15,8 +21,6 @@ If option \code{gc} is \code{TRUE}, the initialization will have frequent calls
 to \code{\link[base:gc]{base::gc()}}, which can help to avoid swapping or running out of
 memory. The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_options]{hy_set_options()}}.}
   }}
-
-\item{or2}{An \code{opusreader2_list}.}
 }
 \value{
 A list of \code{hyperSpec::hyperSpec-class} objects.
@@ -35,11 +39,16 @@ Some data will not be converted:
 }
 \examples{
 data("opusreader2_list")
-spectra <- opusreader2_to_hyperSpec(opusreader2_list[[1]]) |> str()
+spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
 
 }
 \seealso{
-\code{to_hyperSpec()}
+\itemize{
+\item \code{opusreader2_to_ChemoSpec()}
+\item \code{to_hyperSpec()}
+\item \code{.getParamBlockNames()}
+\item \code{.getDataBlockNames()}
+}
 }
 \keyword{from_opusreader2}
 \keyword{to_hyperSpec}
