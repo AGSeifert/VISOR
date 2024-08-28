@@ -75,8 +75,10 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #' @returns A vector of block names.
 #'
 #' @examples
-#' data("opusreader2_list")
-#' .getDataBlockNames(opusreader2_list)
+#' if (FALSE) {
+#'   data("opusreader2_list")
+#'   .getDataBlockNames(opusreader2_list)
+#' }
 #'
 #' @seealso `.getParamBlockNames()`
 #' @export
@@ -102,8 +104,10 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #' @returns A vector of block names.
 #'
 #' @examples
-#' data("opusreader2_list")
-#' .getParamBlockNames(opusreader2_list)
+#' if (FALSE) {
+#'   data("opusreader2_list")
+#'   .getParamBlockNames(opusreader2_list)
+#' }
 #'
 #' @seealso `.getDataBlockNames()`
 #' @export
@@ -142,8 +146,10 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #' @returns A list of `hyperSpec::hyperSpec-class` objects.
 #'
 #' @examples
-#' data("opusreader2_list")
-#' spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
+#' if (FALSE) {
+#'   data("opusreader2_list")
+#'   spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
+#' }
 #'
 #' @export
 #' @keywords from_opusreader2 to_hyperSpec

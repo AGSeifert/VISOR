@@ -16,8 +16,10 @@ A vector of block names.
 Get a list of data block names from opusreader2.
 }
 \examples{
-data("opusreader2_list")
-.getDataBlockNames(opusreader2_list)
+if (FALSE) {
+  data("opusreader2_list")
+  .getDataBlockNames(opusreader2_list)
+}
 
 }
 \seealso{

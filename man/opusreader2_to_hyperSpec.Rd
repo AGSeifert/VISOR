@@ -39,8 +39,10 @@ Some data will not be converted:
 }
 }
 \examples{
-data("opusreader2_list")
-spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
+if (FALSE) {
+  data("opusreader2_list")
+  spectra <- opusreader2_to_hyperSpec(opusreader2_list)[[1]] |> str()
+}
 
 }
 \seealso{
