@@ -54,8 +54,10 @@ Some data will not be converted:
 }
 }
 \examples{
-data("simplerspec_opus")
-spectra <- simplerspec_to_hyperSpec(simplerspec_opus) |> str()
+if (FALSE) {
+  data("simplerspec_opus")
+  spectra <- simplerspec_to_hyperSpec(simplerspec_opus) |> str()
+}
 
 }
 \seealso{

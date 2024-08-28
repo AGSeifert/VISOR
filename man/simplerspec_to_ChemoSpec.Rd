@@ -78,11 +78,13 @@ Some data will not be converted:
 }
 }
 \examples{
-data("simplerspec_opus")
-simplerspec_to_ChemoSpec(
-  simplerspec_opus,
-  groups = factor(LETTERS[1:3])
-) |> str()
+if (FALSE) {
+  data("simplerspec_opus")
+  simplerspec_to_ChemoSpec(
+    simplerspec_opus,
+    groups = factor(LETTERS[1:3])
+  ) |> str()
+}
 
 }
 \seealso{

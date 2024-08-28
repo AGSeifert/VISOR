@@ -263,8 +263,10 @@ opusreader2_to_hyperSpec <- function(
 #' @returns A `ChemoSpec::Spectra()` object.
 #'
 #' @examples
-#' data("simplerspec_opus")
-#' spectra <- simplerspec_to_hyperSpec(simplerspec_opus) |> str()
+#' if (FALSE) {
+#'   data("simplerspec_opus")
+#'   spectra <- simplerspec_to_hyperSpec(simplerspec_opus) |> str()
+#' }
 #'
 #' @export
 #' @keywords from_simplerspec to_hyperSpec

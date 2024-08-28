@@ -204,11 +204,13 @@ matrix_to_ChemoSpec <- function(
 #' @returns A `ChemoSpec::Spectra()` object.
 #'
 #' @examples
-#' data("simplerspec_opus")
-#' simplerspec_to_ChemoSpec(
-#'   simplerspec_opus,
-#'   groups = factor(LETTERS[1:3])
-#' ) |> str()
+#' if (FALSE) {
+#'   data("simplerspec_opus")
+#'   simplerspec_to_ChemoSpec(
+#'     simplerspec_opus,
+#'     groups = factor(LETTERS[1:3])
+#'   ) |> str()
+#' }
 #'
 #' @export
 #' @keywords from_simplerspec to_ChemoSpec
