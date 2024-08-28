@@ -6,11 +6,11 @@
 #'        A single value is treated as setting the same group for all samples.
 #'        **Defaults to** `"{missing group}"`
 #' @param freq Numeric vector with unique frequencies.
-#'        Length must match `ncol()` of `data`.
-#'        **Defaults to** `colnames()` of `data` cast `as.numeric()`.
+#'        Length must match `ncol(data)`.
+#'        **Defaults to** `colnames(data)` cast `as.numeric()`.
 #' @param names Character vector with unique sample names.
-#'        Length must match `nrow()` of `data`.
-#'        **Defaults to** `rownames()` of `data`.
+#'        Length must match `nrow(data)`.
+#'        **Defaults to** `rownames(data)`.
 #' @param unit_frequency,unit_intensity **Optional** labels for the x- and y-axis.
 #' @param desc **Optional** description for plots generated with {ChemoSpec}.
 #' @param colors_set,sym_set,alt.sym_set Character vector with group colors,
