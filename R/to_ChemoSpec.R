@@ -1,8 +1,10 @@
 #' *️⃣ {ChemoSpec}
 #'
 #' @param data Numeric matrix with samples in rows and frequencies in cols.
-#' @param groups Factor with sample class assignments.
-#'        Length must match `nrow()` of `data`.
+#' @param groups Factor with sample class assignments or single integer or string value.
+#'        Length of factor must match `nrow(data)`.
+#'        A single value is treated as setting the same group for all samples.
+#'        **Defaults to** `"{missing group}"`
 #' @param freq Numeric vector with unique frequencies.
 #'        Length must match `ncol()` of `data`.
 #'        **Defaults to** `colnames()` of `data` cast `as.numeric()`.
@@ -33,7 +35,7 @@
 #' @keywords to_ChemoSpec
 to_ChemoSpec <- function(
     data,
-    groups,
+    groups = "{missing group}",
     freq = base::colnames(data) |> base::as.numeric(),
     names = base::rownames(data),
     desc = "{missing description}",
@@ -57,6 +59,11 @@ to_ChemoSpec <- function(
     names,
     any.missing = FALSE, unique = TRUE, len = base::nrow(data)
   )
+
+  if (checkmate::test_string(groups) || checkmate::test_int(groups)) {
+    groups <- base::as.factor(base::rep(groups, base::nrow(data)))
+  }
+
   checkmate::assert_factor(
     groups,
     len = base::nrow(data), empty.levels.ok = FALSE, any.missing = FALSE, min.levels = 1
@@ -148,7 +155,7 @@ to_ChemoSpec <- function(
 #' @seealso `to_ChemoSpec()`
 matrix_to_ChemoSpec <- function(
     data,
-    groups,
+    groups = "{missing group}",
     ...) {
   checkmate::assert_matrix(
     data,
@@ -208,7 +215,7 @@ matrix_to_ChemoSpec <- function(
 #' @seealso `to_ChemoSpec()`
 simplerspec_to_ChemoSpec <- function(
     spc_tbl,
-    groups,
+    groups = "{missing group}",
     data_column = base::c("spc_pre", "spc_mean", "spc_rs", "spc"),
     freq_column = base::c("xvalues_pre", "wavenumbers_rs", "wavenumbers"),
     name_column = base::c("unique_id", "file_id", "sample_id", "sample_name"),
@@ -333,7 +340,7 @@ opusreader2_to_ChemoSpec <- function(
 #' @export
 #' @keywords from_hyperSpec to_ChemoSpec
 #' @seealso `to_ChemoSpec()`, `ChemoSpec_to_hyperSpec()`
-hyperSpec_to_ChemoSpec <- function(hySpc, names, groups, ...) {
+hyperSpec_to_ChemoSpec <- function(hySpc, names, groups = "{missing group}", ...) {
   to_ChemoSpec(
     data = hySpc[[]],
     freq = hySpc |> hyperSpec::wl(),
