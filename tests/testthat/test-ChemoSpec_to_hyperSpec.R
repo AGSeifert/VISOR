@@ -1,5 +1,5 @@
 test_that("ChemoSpec ➡️ hyperSpec: SrE.IR", {
-  skip_if_not_installed("hyperSpec")
+  suppressWarnings(skip_if_not_installed("hyperSpec"))
   skip_if_not_installed("ChemoSpec")
   skip_if_not_installed("ChemoSpecUtils")
 
@@ -15,7 +15,7 @@ test_that("ChemoSpec ➡️ hyperSpec: SrE.IR", {
 })
 
 test_that("ChemoSpec ➡️ hyperSpec: SrE.NMR", {
-  skip_if_not_installed("hyperSpec")
+  suppressWarnings(skip_if_not_installed("hyperSpec"))
   skip_if_not_installed("ChemoSpec")
   skip_if_not_installed("ChemoSpecUtils")
 
@@ -32,7 +32,7 @@ test_that("ChemoSpec ➡️ hyperSpec: SrE.NMR", {
 })
 
 test_that("ChemoSpec ➡️ hyperSpec: metMUD1", {
-  skip_if_not_installed("hyperSpec")
+  suppressWarnings(skip_if_not_installed("hyperSpec"))
   skip_if_not_installed("ChemoSpec")
   skip_if_not_installed("ChemoSpecUtils")
 
@@ -48,7 +48,7 @@ test_that("ChemoSpec ➡️ hyperSpec: metMUD1", {
 })
 
 test_that("ChemoSpec ➡️ hyperSpec: metMUD2", {
-  skip_if_not_installed("hyperSpec")
+  suppressWarnings(skip_if_not_installed("hyperSpec"))
   skip_if_not_installed("ChemoSpec")
   skip_if_not_installed("ChemoSpecUtils")
 
@@ -64,7 +64,7 @@ test_that("ChemoSpec ➡️ hyperSpec: metMUD2", {
 })
 
 test_that("ChemoSpec ➡️ hyperSpec: alignMUD", {
-  skip_if_not_installed("hyperSpec")
+  suppressWarnings(skip_if_not_installed("hyperSpec"))
   skip_if_not_installed("ChemoSpec")
   skip_if_not_installed("ChemoSpecUtils")
 

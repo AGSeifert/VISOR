@@ -275,6 +275,41 @@ simplerspec_to_ChemoSpec <- function(
   )
 }
 
+#' {opusreader2} ⚪ ➡️ 🟠 {ChemoSpec}
+#'
+#' @inheritParams opusreader2_to_hyperSpec
+#' @param groups Factor with sample class assignments.
+#' @param names Character vector with unique sample names.
+#' @param gc See `hyperSpec::new_hyperSpec()`.
+#' @inheritDotParams to_ChemoSpec desc unit_frequency unit_intensity colors_set sym_set alt.sym_set .strict_extra_data_names
+#'
+#' @returns A list of `ChemoSpec::Spectra()` objects.
+#'
+#' @examples
+#' data("opusreader2_list")
+#' spectra <- opusreader2_to_ChemoSpec(opusreader2_list) |> str()
+#'
+#' @export
+#' @keywords from_opusreader2 to_ChemoSpec
+#' @seealso
+#' * `opusreader2_to_hyperSpec()`
+#' * `to_ChemoSpec()`
+#' * `.getParamBlockNames()`
+#' * `.getDataBlockNames()`
+opusreader2_to_ChemoSpec <- function(
+  opusreader2_list,
+  groups,
+  names,
+  data_block = "ab",
+  gc = hyperSpec::hy_get_option("gc"),
+  ...
+) {
+  # TODO groups, names doesn't work if there is multiple...
+  opusreader2_list |>
+    opusreader2_to_hyperSpec(data_block = data_block, gc = gc) |>
+    lapply(hyperSpec_to_ChemoSpec, groups = groups, names = names, ...)
+}
+
 #' {hyperSpec} 🔵  ➡️ 🟠 {ChemoSpec}
 #'
 #' {ChemoSpec} requires that the {hyperSpec} object
