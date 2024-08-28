@@ -61,7 +61,7 @@ to_ChemoSpec <- function(
   )
 
   if (checkmate::test_string(groups) || checkmate::test_int(groups)) {
-    groups <- base::as.factor(base::rep(groups, base::nrow(data)))
+    groups <- groups |> base::rep(base::nrow(data)) |> base::as.factor()
   }
 
   checkmate::assert_factor(
