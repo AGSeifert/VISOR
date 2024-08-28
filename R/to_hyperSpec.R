@@ -188,8 +188,8 @@ opusreader2_to_hyperSpec <- function(
 
           if (cols_to_drop |> length() > 0) {
             warning(paste(
-              "Dropping the following columns due to not being present in every file being loaded:\n·",
-              data_cols_tbl[which(data_cols_tbl != length(opusreader2_list))] |> names() |> paste(collapse = "\n· ")
+              "Dropping the following columns due to not being present in every file being loaded:\n-",
+              data_cols_tbl[which(data_cols_tbl != length(opusreader2_list))] |> names() |> paste(collapse = "\n- ")
             ))
           }
 
