@@ -6,7 +6,7 @@
 \usage{
 opusreader2_to_ChemoSpec(
   opusreader2_list,
-  groups,
+  groups = "{missing group}",
   names,
   data_block = "ab",
   gc = hyperSpec::hy_get_option("gc"),
@@ -24,7 +24,7 @@ opusreader2_to_ChemoSpec(
 If you aren't sure which data blocks are available in your data set,
 use \code{.getDataBlockNames()}.}
 
-\item{gc}{See \code{hyperSpec::new_hyperSpec()}.}
+\item{gc}{See \code{hyperSpec::hyperSpec()}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=to_ChemoSpec]{to_ChemoSpec}}
@@ -46,10 +46,15 @@ columns from \code{extra_data} to overwrite values on the \code{Spectra} object.
   }}
 }
 \value{
-A \code{ChemoSpec::Spectra()} object.
+A list of \code{ChemoSpec::Spectra()} objects.
 }
 \description{
 {opusreader2} ⚪ ➡️ 🟠 {ChemoSpec}
+}
+\examples{
+data("opusreader2_list")
+spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
+
 }
 \seealso{
 \itemize{

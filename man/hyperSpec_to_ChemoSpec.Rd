@@ -4,17 +4,19 @@
 \alias{hyperSpec_to_ChemoSpec}
 \title{{hyperSpec} 🔵  ➡️ 🟠 {ChemoSpec}}
 \usage{
-hyperSpec_to_ChemoSpec(hySpc, names, groups, ...)
+hyperSpec_to_ChemoSpec(hySpc, names, groups = "{missing group}", ...)
 }
 \arguments{
 \item{hySpc}{\code{\link[hyperSpec:hyperSpec-class]{hyperSpec::hyperSpec}} object.}
 
 \item{names}{Character vector with unique sample names.
-Length must match \code{nrow()} of \code{data}.
-\strong{Defaults to} \code{rownames()} of \code{data}.}
+Length must match \code{nrow(data)}.
+\strong{Defaults to} \code{rownames(data)}.}
 
-\item{groups}{Factor with sample class assignments.
-Length must match \code{nrow()} of \code{data}.}
+\item{groups}{Factor with sample class assignments or single integer or string value.
+Length of factor must match \code{nrow(data)}.
+A single value is treated as setting the same group for all samples.
+\strong{Defaults to} \code{"{missing group}"}}
 
 \item{...}{
   Arguments passed on to \code{\link[=to_ChemoSpec]{to_ChemoSpec}}

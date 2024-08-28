@@ -2,40 +2,40 @@
 % Please edit documentation in R/to_hyperSpec.R
 \name{to_hyperSpec}
 \alias{to_hyperSpec}
-\title{*️⃣ {hyperSpec}}
+\title{*️⃣ {hyperSpec} \\uEFB8\\u8FE2\\u83A3}
 \usage{
 to_hyperSpec(...)
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[hyperSpec:initialize]{hyperSpec::new_hyperSpec}}
+  Arguments passed on to \code{\link[hyperSpec:initialize]{hyperSpec::hyperSpec}}
   \describe{
     \item{\code{spc}}{(\code{matrix} or convertible to \code{matrix})  \cr
 A spectra matrix with spectra in rows and wavelength intensities in
 columns.
 
-The \code{spc} does not need to be an R \code{matrix}, but must be an object
+The \code{spc} does not need to be an R \code{matrix}, but it must be an object
 convertible to a matrix via \code{I(as.matrix(spc))}.}
     \item{\code{data}}{(\code{data.frame})  \cr
 A \code{data.frame} with extra (non-spectroscopic) data in columns.
 The data frame may also contain a special column \code{spc} with a \code{matrix}
 of spectroscopic data.
-(Such single column that contains matrix can be created with
+(Such a single column that contains a matrix can be created with
 \code{data.frame(spc = I(as.matrix(spc)))}.
-However, it will usually be more convenient if the spectra are given
-via argument \code{spc}.)}
+However, it is usually more convenient to provide the spectra
+via the \code{spc} argument.)}
     \item{\code{wavelength}}{(numeric vector)  \cr
 The wavelengths corresponding to the columns of \code{spc}.
 
 If no wavelengths are given, an appropriate vector is derived from the
-column the column names of \code{data$spc}. If this is not possible,
+column names of \code{data$spc}. If this is not possible,
 \code{1:ncol(data$spc)} is used instead.}
     \item{\code{labels}}{A named \code{list}:
 \itemize{
-\item list's element names should containing one or more names of \code{data}
-columns as well as special name \code{.wavelength} for \code{wavelength}s ).
+\item list's element names should contain one or more names of \code{data}
+columns as well as the special name \code{.wavelength} for \code{wavelength}s.
 \item list's element values should contain the labels for the indicated
-names usually either in a for of character strings or
+names, usually in the form of character strings or
 \link[grDevices:plotmath]{plotmath} expressions.
 (The labels should be given in a form ready
 for the text-drawing functions, see \code{\link[grDevices:plotmath]{grDevices::plotmath()}}).
@@ -44,15 +44,16 @@ for the text-drawing functions, see \code{\link[grDevices:plotmath]{grDevices::p
 If \code{label} is not given, a list containing \code{NULL} for each of the
 columns of \code{data} and \code{wavelength} is used.}
     \item{\code{gc}}{(logical) \cr Use garbage collection.
-If option \code{gc} is \code{TRUE}, the initialization will have frequent calls
-to \code{\link[base:gc]{base::gc()}}, which can help to avoid swapping or running out of
-memory. The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_options]{hy_set_options()}}.}
+If the option \code{gc} is set to \code{TRUE}, the initialization will have
+frequent calls to \code{\link[base:gc]{base::gc()}}, which can help avoid swapping or
+running out of memory.
+The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_options]{hy_set_options()}}.}
   }}
 }
 \value{
 A \code{\link[hyperSpec:hyperSpec-class]{hyperSpec::hyperSpec}} object.
 }
 \description{
-*️⃣ {hyperSpec}
+*️⃣ {hyperSpec} \\uEFB8\\u8FE2\\u83A3
 }
 \keyword{to_hyperSpec}

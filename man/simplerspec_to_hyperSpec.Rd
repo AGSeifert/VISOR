@@ -34,12 +34,13 @@ using any valid column name on \code{spc_tbl} in \code{spc_column} and
 \code{wavelength_column}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[hyperSpec:initialize]{hyperSpec::new_hyperSpec}}
+  Arguments passed on to \code{\link[hyperSpec:initialize]{hyperSpec::hyperSpec}}
   \describe{
     \item{\code{gc}}{(logical) \cr Use garbage collection.
-If option \code{gc} is \code{TRUE}, the initialization will have frequent calls
-to \code{\link[base:gc]{base::gc()}}, which can help to avoid swapping or running out of
-memory. The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_options]{hy_set_options()}}.}
+If the option \code{gc} is set to \code{TRUE}, the initialization will have
+frequent calls to \code{\link[base:gc]{base::gc()}}, which can help avoid swapping or
+running out of memory.
+The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_options]{hy_set_options()}}.}
   }}
 }
 \value{

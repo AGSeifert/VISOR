@@ -6,7 +6,7 @@
 \usage{
 simplerspec_to_ChemoSpec(
   spc_tbl,
-  groups,
+  groups = "{missing group}",
   data_column = base::c("spc_pre", "spc_mean", "spc_rs", "spc"),
   freq_column = base::c("xvalues_pre", "wavenumbers_rs", "wavenumbers"),
   name_column = base::c("unique_id", "file_id", "sample_id", "sample_name"),
@@ -20,8 +20,10 @@ simplerspec_to_ChemoSpec(
 \code{\link[simplerspec:resample_spc]{simplerspec::resample_spc}}, \code{\link[simplerspec:average_spc]{simplerspec::average_spc}},
 or \code{\link[simplerspec:preprocess_spc]{simplerspec::preprocess_spc}} spectra tibble.}
 
-\item{groups}{Factor with sample class assignments.
-Length must match \code{nrow()} of \code{data}.}
+\item{groups}{Factor with sample class assignments or single integer or string value.
+Length of factor must match \code{nrow(data)}.
+A single value is treated as setting the same group for all samples.
+\strong{Defaults to} \code{"{missing group}"}}
 
 \item{data_column}{Column name of the data to use.
 Must be one of \verb{"spc_pre", "spc_mean", "spc_rs", "spc"}, or

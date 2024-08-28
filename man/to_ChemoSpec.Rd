@@ -6,7 +6,7 @@
 \usage{
 to_ChemoSpec(
   data,
-  groups,
+  groups = "{missing group}",
   freq = base::as.numeric(base::colnames(data)),
   names = base::rownames(data),
   desc = "{missing description}",
@@ -22,16 +22,18 @@ to_ChemoSpec(
 \arguments{
 \item{data}{Numeric matrix with samples in rows and frequencies in cols.}
 
-\item{groups}{Factor with sample class assignments.
-Length must match \code{nrow()} of \code{data}.}
+\item{groups}{Factor with sample class assignments or single integer or string value.
+Length of factor must match \code{nrow(data)}.
+A single value is treated as setting the same group for all samples.
+\strong{Defaults to} \code{"{missing group}"}}
 
 \item{freq}{Numeric vector with unique frequencies.
-Length must match \code{ncol()} of \code{data}.
-\strong{Defaults to} \code{colnames()} of \code{data} cast \code{as.numeric()}.}
+Length must match \code{ncol(data)}.
+\strong{Defaults to} \code{colnames(data)} cast \code{as.numeric()}.}
 
 \item{names}{Character vector with unique sample names.
-Length must match \code{nrow()} of \code{data}.
-\strong{Defaults to} \code{rownames()} of \code{data}.}
+Length must match \code{nrow(data)}.
+\strong{Defaults to} \code{rownames(data)}.}
 
 \item{desc}{\strong{Optional} description for plots generated with {ChemoSpec}.}
 
