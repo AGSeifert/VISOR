@@ -2,7 +2,7 @@
 
 #' *️⃣ {hyperSpec}
 #'
-#' @inheritDotParams hyperSpec::new_hyperSpec spc data wavelength labels gc
+#' @inheritDotParams hyperSpec::hyperSpec spc data wavelength labels gc
 #'
 #' @returns A [`hyperSpec::hyperSpec-class`] object.
 #'
@@ -10,13 +10,13 @@
 #' @keywords to_hyperSpec
 to_hyperSpec <- function(...) {
   rlang::check_installed("hyperSpec", version = "0.200.0.9000")
-  hyperSpec::new_hyperSpec(...)
+  hyperSpec::hyperSpec(...)
 }
 
 #' {ChemoSpec} 🟠 ➡️ 🔵 {hyperSpec}
 #'
 #' @param Spectra `ChemoSpec::Spectra()` object.
-#' @inheritDotParams hyperSpec::new_hyperSpec gc
+#' @inheritDotParams hyperSpec::hyperSpec gc
 #'
 #' @returns A [`hyperSpec::hyperSpec-class`] object.
 #'
@@ -137,7 +137,7 @@ ChemoSpec_to_hyperSpec <- function(Spectra, ...) {
 #'        If you aren't sure which data blocks are available in your data set,
 #'        use `.getDataBlockNames()`.
 #' @inheritParams to_hyperSpec
-#' @inheritDotParams hyperSpec::new_hyperSpec gc
+#' @inheritDotParams hyperSpec::hyperSpec gc
 #'
 #' @returns A list of `hyperSpec::hyperSpec-class` objects.
 #'
@@ -252,7 +252,7 @@ opusreader2_to_hyperSpec <- function(
 #'        using any valid column name on `spc_tbl` in `spc_column` and
 #'        `wavelength_column`.
 #' @inheritParams to_hyperSpec
-#' @inheritDotParams hyperSpec::new_hyperSpec gc
+#' @inheritDotParams hyperSpec::hyperSpec gc
 #'
 #' @returns A `ChemoSpec::Spectra()` object.
 #'

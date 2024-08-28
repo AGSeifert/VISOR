@@ -287,7 +287,7 @@ simplerspec_to_ChemoSpec <- function(
 #' @inheritParams opusreader2_to_hyperSpec
 #' @param groups Factor with sample class assignments.
 #' @param names Character vector with unique sample names.
-#' @param gc See `hyperSpec::new_hyperSpec()`.
+#' @param gc See `hyperSpec::hyperSpec()`.
 #' @inheritDotParams to_ChemoSpec desc unit_frequency unit_intensity colors_set sym_set alt.sym_set .strict_extra_data_names
 #'
 #' @returns A list of `ChemoSpec::Spectra()` objects.
