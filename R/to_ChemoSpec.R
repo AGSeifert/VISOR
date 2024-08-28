@@ -294,7 +294,7 @@ simplerspec_to_ChemoSpec <- function(
 #'
 #' @examples
 #' data("opusreader2_list")
-#' spectra <- opusreader2_to_ChemoSpec(opusreader2_list) |> str()
+#' spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
 #'
 #' @export
 #' @keywords from_opusreader2 to_ChemoSpec
