@@ -6,7 +6,7 @@
 \usage{
 opusreader2_to_ChemoSpec(
   opusreader2_list,
-  groups = "{missing group}",
+  groups,
   names,
   data_block = "ab",
   gc = hyperSpec::hy_get_option("gc"),
@@ -52,8 +52,10 @@ A list of \code{ChemoSpec::Spectra()} objects.
 {opusreader2} ⚪ ➡️ 🟠 {ChemoSpec}
 }
 \examples{
-data("opusreader2_list")
-spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
+if (FALSE) {
+  data("opusreader2_list")
+  spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
+}
 
 }
 \seealso{

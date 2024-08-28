@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_hyperSpec.R
 \name{to_hyperSpec}
 \alias{to_hyperSpec}
-\title{*️⃣ {hyperSpec} \\uEFB8\\u8FE2\\u83A3}
+\title{*️⃣ {hyperSpec}}
 \usage{
 to_hyperSpec(...)
 }
@@ -54,6 +54,6 @@ The default value of \code{gc} can be set via \code{\link[hyperSpec:hy_set_optio
 A \code{\link[hyperSpec:hyperSpec-class]{hyperSpec::hyperSpec}} object.
 }
 \description{
-*️⃣ {hyperSpec} \\uEFB8\\u8FE2\\u83A3
+*️⃣ {hyperSpec}
 }
 \keyword{to_hyperSpec}

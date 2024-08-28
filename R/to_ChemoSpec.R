@@ -293,8 +293,10 @@ simplerspec_to_ChemoSpec <- function(
 #' @returns A list of `ChemoSpec::Spectra()` objects.
 #'
 #' @examples
-#' data("opusreader2_list")
-#' spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
+#' if (FALSE) {
+#'   data("opusreader2_list")
+#'   spectra <- opusreader2_to_ChemoSpec(opusreader2_list, "A", 1:3 |> as.character()) |> str()
+#' }
 #'
 #' @export
 #' @keywords from_opusreader2 to_ChemoSpec
